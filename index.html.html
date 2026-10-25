@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Watch – Smart Agriculture Console</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Field Watch</h1>
+  <p>A smart-farming console for a mixed-crop farm: sensor alerts, offline field nodes, yield chart events, a crop guide and advisory data from a backend service.</p>
+</header>
+<main>
+
+<section aria-labelledby="t1">
+  <h2 id="t1">1. Field sensor alerts</h2>
+  <p class="sub">Readings from soil probes and weather stations are filtered, mapped and reduced into an alert table.</p>
+  <div class="row"><button id="t1-run">Ingest new batch</button></div>
+  <div class="scroll" id="t1-out" aria-live="polite"></div>
+  <div class="chips" id="t1-sum"></div>
+</section>
+
+<section aria-labelledby="t2">
+  <h2 id="t2">2. Offline field node scanner</h2>
+  <p class="sub">A NodeIterator finds every node marked offline and restyles it. A TreeWalker then updates its label.</p>
+  <div class="row">
+    <button id="t2-scan">Scan for offline nodes</button>
+    <button class="ghost" id="t2-flip">Take a random node offline</button>
+    <button class="ghost" id="t2-reset">Reset</button>
+    <span id="t2-msg" aria-live="polite"></span>
+  </div>
+  <div class="dash" id="dash"></div>
+</section>
+
+<section aria-labelledby="t3">
+  <h2 id="t3">3. Crop yield chart and event flow</h2>
+  <p class="sub">Click a crop bar or its link. Capture listeners run top-down, bubble listeners bottom-up. The link’s default navigation is blocked.</p>
+  <div class="row">
+    <label><input type="checkbox" id="t3-stop"> Stop propagation at the bar</label>
+    <button class="ghost" id="t3-clear">Clear log</button>
+  </div>
+  <div class="chart" id="chart" data-name="chart">
+    <div class="bars" id="bars" data-name="bars"></div>
+  </div>
+  <p class="readout" id="t3-read" aria-live="polite">No click yet.</p>
+  <ul class="log" id="t3-log"></ul>
+</section>
+
+<section aria-labelledby="t4">
+  <h2 id="t4">4. Crop care guide</h2>
+  <p class="sub">The collapsible sections and tooltips are built only with createElement, appendChild and insertBefore. Hover the dotted terms. The tooltip follows the mouse and stays inside the window.</p>
+  <div id="coll-host"></div>
+</section>
+
+<section aria-labelledby="t5">
+  <h2 id="t5">5. Farm advisory service</h2>
+  <p class="sub">Each button runs a mock request to the advisory backend: a valid packet, malformed JSON, a server error or a timeout.</p>
+  <div class="row">
+    <button data-case="ok">Fetch advisory</button>
+    <button class="ghost" data-case="bad-json">Malformed JSON</button>
+    <button class="ghost" data-case="server">Server error 503</button>
+    <button class="ghost" data-case="timeout">Timeout</button>
+  </div>
+  <div class="panes">
+    <div class="pane"><h3>Latest advisory</h3><div id="t5-data" class="busy">Nothing fetched yet.</div></div>
+    <div class="pane"><h3>Status</h3><div id="t5-status" aria-live="polite" role="status" class="busy">Idle.</div></div>
+  </div>
+</section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
